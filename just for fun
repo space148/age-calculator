@@ -1,5 +1,94 @@
-#include<stdio.h>
-main()
-{
-printf("\ninka modhaledadhama");
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator and Day of the Week Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2a2626;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #06060652;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        h1 {
+            color: #dad5d5;
+        }
+        label {
+            display: block;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        input[type="date"], select {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #162f4a;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0b1f35;
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age Calculator and Day of the Week Finder</h1>
+        <label for="birthdate">Enter your birthdate:</label>
+        <input type="date" id="birthdate">
+        <label for="scale">Select a scale:</label>
+        <select id="scale">
+            <option value="years">Years</option>
+            <option value="months">Months</option>
+            <option value="days">Days</option>
+        </select>
+        <button onclick="calculateAgeAndDay()">Calculate</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateAgeAndDay() {
+            const birthdate = new Date(document.getElementById("birthdate").value);
+            const scale = document.getElementById("scale").value;
+            const currentDate = new Date();
+            const timeDifference = currentDate - birthdate;
+            let result = '';
+
+            if (scale === "years") {
+                const years = Math.floor(timeDifference / (365.25 * 24 * 60 * 60 * 1000));
+                result = `You are ${years} years old.`;
+            } else if (scale === "months") {
+                const months = Math.floor(timeDifference / (30.44 * 24 * 60 * 60 * 1000));
+                result = `You are ${months} months old.`;
+            } else if (scale === "days") {
+                const days = Math.floor(timeDifference / (24 * 60 * 60 * 1000));
+                result = `You are ${days} days old.`;
+            }
+
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const dayOfWeek = daysOfWeek[birthdate.getDay()];
+            result += ` Your birthdate falls on a ${dayOfWeek}.`;
+
+            document.getElementById("result").textContent = result;
+        }
+    </script>
+</body>
+</html>
